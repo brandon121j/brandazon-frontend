@@ -1,0 +1,48 @@
+.productContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.img img {
+    width: 500px;
+    height: 500px;
+}
+
+.img {
+    padding: 35px;
+}
+
+.productInfo {
+    padding: 35px;
+    margin-right: 10px;
+    width: 500px;
+}
+
+.productInfo h3 {
+    text-align: left;
+}
+
+/* .productInfo h4 {
+    text-align: left;
+} */
+
+.aboutItem {
+    margin-left: 25px;
+    padding: 35px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    margin-right: 150px;
+    margin-top: 50px;
+    padding: 35px;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+.buttons button {
+    padding: 15px;
+    margin-top: 10px;
+}

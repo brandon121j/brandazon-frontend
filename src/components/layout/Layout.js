@@ -1,15 +1,15 @@
-
 import React from 'react';
 import Header from './Header';
 
 const Layout = (props) => {
 	const { children } = props;
+
 	return (
 		<div>
-			<div className='header'>
+			<div style={{ marginBottom: 150 }}>
 				<Header />
 			</div>
-			<div className='children'>{children}</div>
+			<div>{children}</div>
 		</div>
 	);
 };
