@@ -7,6 +7,7 @@ import FirstNameHooks from '../hooks/FirstNameHooks';
 import LastNameHooks from '../hooks/LastNameHooks';
 import PasswordHooks from '../hooks/PasswordHooks';
 import EmailHooks from '../hooks/EmailHooks';
+import Layout from '../layout/Layout'
 
 
 
@@ -47,9 +48,8 @@ function Signup() {
 		e.preventDefault();
 
 		try {
-			let url = "http://localhost:3001/api/auth/users/create-user";
 
-			await ApiAxios.post(url, {
+			await ApiAxios.post('/signup', {
 				firstName,
 				lastName,
 				email,
@@ -63,12 +63,13 @@ function Signup() {
 	}
 
 	return (
+		<Layout>
 		<div className="d-flex justify-content-center text-center rounded m-5">
 			<div className="card w-25">
-				<form class="form-group card-body" onSubmit={handleSubmit}>
+				<form className="form-group card-body" onSubmit={handleSubmit}>
 					<h2>Sign up</h2>
 					<div className="m-3">
-						<label class="m-1">First Name</label>
+						<label className="m-1">First Name</label>
 						<input
 							type="text"
 							onChange={handleFirstNameOnChange}
@@ -159,6 +160,7 @@ function Signup() {
 				</form>
 			</div>
 		</div>
+		</Layout>
 	);
 }
 

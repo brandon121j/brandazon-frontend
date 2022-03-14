@@ -11,7 +11,7 @@ function LastNameHooks() {
         if (onBlur) {
             if (last.length === 0) {
                 setClassName('form-control is-invalid');
-                setErr('First name cannot be empty');
+                setErr('Last name cannot be empty');
             } else if (!isAlpha(last)) {
                 setErr('Cannot have special characters or numbers');
                 setClassName('form-control is-invalid');
