@@ -23,12 +23,11 @@ const Home = () => {
 		<div style={{ margin: "100px"}}>
 			<Box p={4} display='flex' flexDirection='row'>
 				{products.map((product) => (
-          <Link to='/product' state={{ id: product._id }} className='linkTag'>
-					<Box mb={5} mr={1} key={product.id} display="flex" flexDirection="row" sx={{ cursor: 'pointer' }}>
+          <Link to='/product' key={product._id} state={{ id: product._id }} className='linkTag'>
+					<Box mb={5} mr={1} display="flex" flexDirection="row" sx={{ cursor: 'pointer' }}>
           <ProductCard
-              
               product={{
-                id: product.id,
+                id: product._id,
                 title: product.title,
                 price: product.price,
                 image: product.image,

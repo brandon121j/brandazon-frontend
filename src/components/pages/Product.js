@@ -19,7 +19,7 @@ const Product = () => {
   const getProductInfo = async() => {
     try {
     setLoading(true);
-    ApiAxios.get(`/product/${id}`)
+    await ApiAxios.get(`/product/${id}`)
     .then((product) => setProductInfo(product.data.payload))
     .then(() => setLoading(false))
     .catch((err) => console.log(err))
