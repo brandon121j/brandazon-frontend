@@ -16,9 +16,9 @@ import { AuthContext } from './context/AuthContext';
 function App() {
 	const { dispatch, state } = useContext(AuthContext);
 
-  useEffect(() => {
-    console.log(state.user)
-  }, [])
+	useEffect(() => {
+		console.log(`APP.JS ${state}`);
+	}, []);
 
 	return (
 		<div className="App">
@@ -32,7 +32,14 @@ function App() {
 							</PrivateRoute>
 						}
 					/>
-					<Route path="/checkout" element={<Checkout />} />
+					<Route
+						path="/checkout"
+						element={
+							<PrivateRoute>
+								<Checkout />
+							</PrivateRoute>
+						}
+					/>
 					<Route path="/sign-in" element={<Signin />} />
 					<Route path="/sign-up" element={<Signup />} />
 					<Route path="/product" element={<Product />} />

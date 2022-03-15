@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ApiAxios from '../../util/apiAxios';
 import CircularProgress from '@mui/material/CircularProgress';
 import '../styles/product.css';
 import Layout from '../layout/Layout';
+import { AuthContext } from '../../context/AuthContext';
 
 const Product = () => {
 	const [productInfo, setProductInfo] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const location = useLocation();
 	const { id } = location.state;
+	const { dispatch, state } = useContext(AuthContext);
 
 	useEffect(() => {
 		getProductInfo();
@@ -30,7 +32,16 @@ const Product = () => {
 	const addToCart = async () => {
 		try {
 			await ApiAxios.post(`/add-to-cart/${id}`)
-				.then(() => console.log('Product added to cart!'))
+				.then((payload) => {
+					dispatch({
+						type: "UPDATE",
+						email: payload.data.user.email,
+						firstName: payload.data.user.firstName,
+						lastName: payload.data.user.lastName,
+						wishlist: payload.data.user.usersWishlist,
+						cart: payload.data.user.usersCart
+					})
+				})
 				.catch((err) => console.log(err));
 		} catch (err) {
 			console.log(err);

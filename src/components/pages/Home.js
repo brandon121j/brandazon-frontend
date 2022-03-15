@@ -5,6 +5,7 @@ import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
 import { Link } from 'react-router-dom';
 import '../../App.css'
+import { flexbox } from '@mui/system';
 
 const Home = () => {
 	const [products, setProducts] = useState([]);
@@ -14,17 +15,17 @@ const Home = () => {
     setLoading(true);
 		ApiAxios.get('/get-all-products')
     .then((result) => setProducts(result.data))
-    .then(() => console.log(products))
+    .then(() => setLoading(false))
 
 	}, []);
 
 	return (
     <Layout>
-		<div style={{ margin: "100px"}}>
-			<Box p={4} display='flex' flexDirection='row'>
+		<div>
+			<Box style={{ width: '1800px'}}>
 				{products.map((product) => (
           <Link to='/product' key={product._id} state={{ id: product._id }} className='linkTag'>
-					<Box mb={5} mr={1} display="flex" flexDirection="row" sx={{ cursor: 'pointer' }}>
+					<Box m={2}  sx={{ cursor: 'pointer', display: 'inline-block' }}>
           <ProductCard
               product={{
                 id: product._id,

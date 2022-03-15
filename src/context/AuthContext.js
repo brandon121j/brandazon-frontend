@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 
 export const AuthContext = React.createContext({});
 
@@ -13,9 +13,23 @@ function reducer(state, action) {
                 user: {
                     email: action.email,
                     firstName: action.firstName,
-                    lastName: action.lastName
+                    lastName: action.lastName,
+                    wishlist: action.wishlist,
+                    cart: action.cart,
+                    cartItems: action.cart.length
                 }
             };
+        case "UPDATE": 
+            return {
+                user: {
+                    email: action.email,
+                    firstName: action.firstName,
+                    lastName: action.lastName,
+                    wishlist: action.wishlist,
+                    cart: action.cart,
+                    cartItems: action.cart.length
+                }
+            }
         case "LOGOUT":
             return {
                 user: null

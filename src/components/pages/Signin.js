@@ -21,7 +21,7 @@ const Signin = () => {
 		setOnEmailBlur,
 	] = SigninHooks();
 
-    async function handleSubmit(e) {
+    async function handleLogin(e) {
 		e.preventDefault();
 		try {
 			let payload = await ApiAxios.post('/login', {
@@ -29,11 +29,15 @@ const Signin = () => {
 				password,
 			});
 
+			console.log('usersWishlist: ', payload.data.user.usersWishlist)
+
 			dispatch({
 				type: "LOGIN",
-				email: payload.data.email,
-				firstName: payload.data.firstName,
-				lastName: payload.data.lastName
+				email: payload.data.user.email,
+				firstName: payload.data.user.firstName,
+				lastName: payload.data.user.lastName,
+				wishlist: payload.data.user.usersWishlist,
+				cart: payload.data.user.usersCart
 			})
 			navigate('/');
 		} catch (e) {
@@ -45,7 +49,7 @@ const Signin = () => {
 		<Layout>
 		<div className="d-flex justify-content-center text-center rounded m-5">
 		<div className="card w-25">
-			<form className="form-group card-body" onSubmit={handleSubmit}>
+			<form className="form-group card-body" onSubmit={handleLogin}>
 				<h2>Sign in</h2>
 				<div className="m-3">
 					<label className="m-1">Email</label>

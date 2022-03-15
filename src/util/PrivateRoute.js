@@ -6,7 +6,7 @@ function PrivateRoute({ children }) {
     const {state} = useContext(AuthContext);
 	const location = useLocation();
 
-	if (state.user  !== null) {
+	if (state.user) {
 		return children;
 	} else {
 		return <Navigate to="/sign-in" state={{ from: location }} />;

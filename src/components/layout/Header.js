@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
 	AppBar,
 	IconButton,
@@ -15,11 +15,13 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import Badge from '@material-ui/core/Badge';
 import ApiAxios from '../../util/apiAxios';
 import { AuthContext } from '../../context/AuthContext';
 
 const Header = () => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
+	const { state, dispatch } = useContext(AuthContext);
 
 	const open = Boolean(anchorEl);
 
@@ -32,7 +34,7 @@ const Header = () => {
 	};
 
 	let navigate = useNavigate();
-	const { state, dispatch } = useContext(AuthContext);
+	
 
 	const routeChange = (path) => {
 		navigate(`/${path}`);
@@ -46,15 +48,14 @@ const Header = () => {
 					dispatch({
 						type: 'LOGOUT',
 					});
-					window.localStorage.removeItem('jwtToken');
 				})
 				.then(() => console.log('User signed out'))
 				.catch((err) => console.log(err));
-
 		} catch (err) {
 			console.log(err);
 		}
 	};
+	
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -126,7 +127,9 @@ const Header = () => {
 								sx={{}}
 								onClick={() => routeChange('checkout')}
 							>
-								<ShoppingCartIcon />
+								<Badge style={{ color: 'inherit' }} badgeContent={state.user ? state.user.cartItems : 0 }>
+								<ShoppingCartIcon />{" "}
+								</Badge>
 							</IconButton>
 						</Box>
 					</Box>
