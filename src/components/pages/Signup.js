@@ -49,7 +49,7 @@ function Signup() {
 
 		try {
 
-			await ApiAxios.post('/signup', {
+			await ApiAxios.post('/create-user', {
 				firstName,
 				lastName,
 				email,

@@ -5,7 +5,7 @@ import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
 import { Link } from 'react-router-dom';
 import '../../App.css'
-import { flexbox } from '@mui/system';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Home = () => {
 	const [products, setProducts] = useState([]);
@@ -21,6 +21,15 @@ const Home = () => {
 
 	return (
     <Layout>
+    {loading ? (
+      <div
+					style={{ display: 'flex', justifyContent: 'center', padding: 350 }}
+				>
+					<div style={{ display: 'flex', justifyContent: 'center' }}>
+						<CircularProgress />
+					</div>
+				</div>
+    ) : (
 		<div>
 			<Box style={{ width: '1800px'}}>
 				{products.map((product) => (
@@ -40,6 +49,7 @@ const Home = () => {
 				))}
 			</Box>
 		</div>
+    )}
     </Layout>
 	);
 };

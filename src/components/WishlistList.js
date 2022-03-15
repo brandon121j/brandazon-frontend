@@ -18,9 +18,11 @@ const ProductList = (props) => {
 
 	const { dispatch } = useContext(AuthContext);
 
-	const removeFromCart = async(id) => {
+
+	const removeFromWishlist = async(id) => {
 		try {
-			await ApiAxios.delete(`/remove-from-cart/${id}`)
+			await ApiAxios.delete(`/remove-from-wishlist/${id}`)
+                    // .then((payload) => console.log(payload))
 				.then((payload) => dispatch({
 					type: "UPDATE",
 					email: payload.data.user.email,
@@ -60,7 +62,7 @@ const ProductList = (props) => {
 						/>
 					</Box>
 					<Box style={{width: '50px'}}>
-						<IconButton edge="end" aria-label="delete" onClick={() => {removeFromCart(id)}}>
+						<IconButton edge="end" aria-label="delete" onClick={() => {removeFromWishlist(id)}}>
 							<DeleteIcon />
 						</IconButton>
 					</Box>

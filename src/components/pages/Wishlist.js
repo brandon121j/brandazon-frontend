@@ -1,45 +1,64 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Box } from '@mui/material';
-import ProductCard from '../ProductCard';
+import WishlistList from '../WishlistList';
 import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import '../../App.css'
 
 
 const Checkout = () => {
 	const [wishlist, setWishlist] = useState([]);
 	const [loading, setLoading] = useState(false);
+  const {state} = useContext(AuthContext)
 
 	useEffect(() => {
     setLoading(true);
 		ApiAxios.get('/get-users-wishlist')
     .then((result) => setWishlist(result.data.wishlist))
-    .then(() => console.log(wishlist))
-	}, []);
+    .then(() => setLoading(false))
+    .catch((err) => console.log(err))
+	}, [state]);
 
 	return (
     <Layout>
-		<div style={{ margin: "100px"}}>
-			<Box p={4} display='flex' flexDirection='row'>
-				{wishlist.map((product) => (
-          <Link to='/product' key={product._id} state={{ id: product._id }} className='linkTag'>
-					<Box mb={5} mr={1} display="flex" flexDirection="row" sx={{ cursor: 'pointer' }}>
-          <ProductCard
-              product={{
-                id: product._id,
-                title: product.title,
-                price: product.price,
-                image: product.image,
-              }}
-              /> 
-
-          </Box>
-          </Link>
-				))}
-			</Box>
-		</div>
-    </Layout>
+			{loading ? (
+				<div
+					style={{ display: 'flex', justifyContent: 'center', padding: 350 }}
+				>
+					<div style={{ display: 'flex', justifyContent: 'center' }}>
+						<CircularProgress />
+					</div>
+				</div>
+			) : (
+				<>
+					<h3 style={{ padding: 15 }}>Wishlist</h3>
+				<div style={{ display: 'flex', justifyContent: 'center' }}>
+					<div>
+						{wishlist.map((product) => (
+							<Box
+								mb={0.5}
+								display="flex"
+								flexDirection="row"
+								sx={{ cursor: 'pointer' }}
+							>
+								<WishlistList
+									product={{
+										id: product._id,
+										title: product.title,
+										price: product.price,
+										image: product.image,
+									}}
+								/>
+							</Box>
+						))}
+					</div>
+				</div>
+				</>
+			)}
+		</Layout>
 	);
 };
 
