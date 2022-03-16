@@ -15,7 +15,6 @@ function CategoryHooks() {
             } else if (category == 'Select a Category') {
                 setError('Category is required');
                 setClassName('form-control is-invalid');
-                console.log('CATEGORY HOOK WORKING');
             } else {
                 setError('');
                 setClassName('form-control is-valid');

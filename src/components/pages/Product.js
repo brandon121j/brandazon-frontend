@@ -1,15 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import ApiAxios from '../../util/apiAxios';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import CircularProgress from '@mui/material/CircularProgress';
-import '../styles/product.css';
-import Layout from '../layout/Layout';
-import { AuthContext } from '../../context/AuthContext';
 import { Button, Stack } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
+
+import { AuthContext } from '../../context/AuthContext';
+import ApiAxios from '../../util/apiAxios';
+import Layout from '../layout/Layout';
+import '../styles/product.css';
 
 const Product = () => {
 	const { dispatch, state } = useContext(AuthContext);
@@ -19,7 +21,8 @@ const Product = () => {
 	const [loading, setLoading] = useState(false);
 	const [addedToWishlist, setAddedToWishlist] = useState(false);
 	const [addedToCart, setAddedToCart] = useState(false);
-	
+	const navigate = useNavigate();
+
 
 	useEffect(() => {
 		getProductInfo();
@@ -115,6 +118,14 @@ const Product = () => {
 		}
 	};
 
+	const userLoggedIn = () => {
+		const userID = window.localStorage.getItem('userID');
+
+		if (!userID) {
+			navigate('/sign-in');
+		}
+	}
+
 	return (
 		<Layout>
 			{loading ? (
@@ -141,8 +152,8 @@ const Product = () => {
 					<div className="buttons">
 						<h4>${productInfo.price}</h4>
 						<Stack>
-							<Button color='inherit' startIcon={addedToCart ? <ShoppingCartIcon /> : <AddShoppingCartIcon />} onClick={() => addToCart()}>{addedToCart ? 'Item added to cart!' : 'Add item to cart'}</Button>
-							<Button color='inherit' startIcon={addedToWishlist ? <StarIcon /> : <StarBorderIcon />} onClick={() => {addToWishlist()}}>{addedToWishlist ? 'Item added to wishlist!' : 'Add item to wishlist'}</Button>
+							<Button color='inherit' startIcon={addedToCart ? <ShoppingCartIcon /> : <AddShoppingCartIcon />} onClick={() => {userLoggedIn(); addToCart()}}>{addedToCart ? 'Item added to cart!' : 'Add item to cart'}</Button>
+							<Button color='inherit' startIcon={addedToWishlist ? <StarIcon /> : <StarBorderIcon />} onClick={() => {userLoggedIn(); addToWishlist()}}>{addedToWishlist ? 'Item added to wishlist!' : 'Add item to wishlist'}</Button>
 						</Stack>
 					</div>
 				</div>

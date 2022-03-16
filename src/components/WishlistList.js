@@ -22,7 +22,6 @@ const ProductList = (props) => {
 	const removeFromWishlist = async(id) => {
 		try {
 			await ApiAxios.delete(`/remove-from-wishlist/${id}`)
-                    // .then((payload) => console.log(payload))
 				.then((payload) => dispatch({
 					type: "UPDATE",
 					email: payload.data.user.email,

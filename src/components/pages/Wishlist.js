@@ -4,26 +4,24 @@ import WishlistList from '../WishlistList';
 import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import '../../App.css'
-
+import '../../App.css';
 
 const Checkout = () => {
 	const [wishlist, setWishlist] = useState([]);
 	const [loading, setLoading] = useState(false);
-  const {state} = useContext(AuthContext)
+	const { state } = useContext(AuthContext);
 
 	useEffect(() => {
-    setLoading(true);
+		setLoading(true);
 		ApiAxios.get('/get-users-wishlist')
-    .then((result) => setWishlist(result.data.wishlist))
-    .then(() => setLoading(false))
-    .catch((err) => console.log(err))
+			.then((result) => setWishlist(result.data.wishlist))
+			.then(() => setLoading(false))
+			.catch((err) => console.log(err));
 	}, [state]);
 
 	return (
-    <Layout>
+		<Layout>
 			{loading ? (
 				<div
 					style={{ display: 'flex', justifyContent: 'center', padding: 350 }}
@@ -35,27 +33,28 @@ const Checkout = () => {
 			) : (
 				<>
 					<h3 style={{ padding: 15 }}>Wishlist</h3>
-				<div style={{ display: 'flex', justifyContent: 'center' }}>
-					<div>
-						{wishlist.map((product) => (
-							<Box
-								mb={0.5}
-								display="flex"
-								flexDirection="row"
-								sx={{ cursor: 'pointer' }}
-							>
-								<WishlistList
-									product={{
-										id: product._id,
-										title: product.title,
-										price: product.price,
-										image: product.image,
-									}}
-								/>
-							</Box>
-						))}
+					<div style={{ display: 'flex', justifyContent: 'center' }}>
+						<div>
+							{wishlist.map((product) => (
+								<Box
+									mb={0.5}
+									display="flex"
+									flexDirection="row"
+									sx={{ cursor: 'pointer' }}
+									key={product._id}
+								>
+									<WishlistList
+										product={{
+											id: product._id,
+											title: product.title,
+											price: product.price,
+											image: product.image,
+										}}
+									/>
+								</Box>
+							))}
+						</div>
 					</div>
-				</div>
 				</>
 			)}
 		</Layout>

@@ -39,7 +39,6 @@ const Header = () => {
 
 	const routeChange = (path) => {
 		navigate(`/${path}`);
-		console.log(path);
 	};
 
 	const logout = async () => {

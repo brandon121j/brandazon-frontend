@@ -20,7 +20,7 @@ const Checkout = () => {
 		try {
 			setLoading(true);
 			await ApiAxios.get('/checkout')
-				.then((result) => setCart(result.data.cart))
+				.then((payload) => setCart(payload.data.cart))
 				.then(() => setLoading(false));
 		} catch (err) {
 			console.log(err);
@@ -48,6 +48,7 @@ const Checkout = () => {
 								display="flex"
 								flexDirection="row"
 								sx={{ cursor: 'pointer' }}
+								key={product._id}
 							>
 								<ProductList
 									product={{
