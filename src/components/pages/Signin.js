@@ -5,6 +5,7 @@ import SigninHooks from '../hooks/SigninHooks';
 import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
 import { AuthContext } from '../../context/AuthContext';
+import { toast } from "react-toastify";
 
 const Signin = () => {
 	const { dispatch } = useContext(AuthContext);
@@ -29,19 +30,39 @@ const Signin = () => {
 				password,
 			});
 
-			console.log('usersWishlist: ', payload.data.user.usersWishlist)
+			window.localStorage.setItem('userID', payload.data.user.id);
 
 			dispatch({
 				type: "LOGIN",
 				email: payload.data.user.email,
 				firstName: payload.data.user.firstName,
 				lastName: payload.data.user.lastName,
-				wishlist: payload.data.user.usersWishlist,
-				cart: payload.data.user.usersCart
-			})
+				wishlist: payload.data.user.wishlist,
+				cart: payload.data.user.cart
+			});
+
+			toast.success('user signed in!', {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+
 			navigate('/');
-		} catch (e) {
-			console.log(e.response.data);
+		} catch (err) {
+			toast.error(err.response.data.error, {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+
 		}
 	}
 

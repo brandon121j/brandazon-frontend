@@ -28,8 +28,8 @@ const ProductList = (props) => {
 					email: payload.data.user.email,
 					firstName: payload.data.user.firstName,
 					lastName: payload.data.user.lastName,
-					wishlist: payload.data.user.usersWishlist,
-					cart: payload.data.user.usersCart
+					wishlist: payload.data.user.wishlist,
+					cart: payload.data.user.cart
 				}))
 				.catch((err) => console.log(err))
 		} catch(err) {

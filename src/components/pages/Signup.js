@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ApiAxios from '../../util/apiAxios';
 
-// import CheckToken from '../../hooks/CheckToken';
 import FirstNameHooks from '../hooks/FirstNameHooks';
 import LastNameHooks from '../hooks/LastNameHooks';
 import PasswordHooks from '../hooks/PasswordHooks';
 import EmailHooks from '../hooks/EmailHooks';
 import Layout from '../layout/Layout'
+import { toast } from "react-toastify";
 
 
 
@@ -37,13 +37,6 @@ function Signup() {
 
 	const navigate = useNavigate();
 	
-	// const { checkJwtToken } = CheckToken();
-	// useEffect(() => {
-	// 	if (checkJwtToken()) {
-	// 		navigate('/');
-	// 	}
-	// }, []);
-
 	async function handleSubmit(e) {
 		e.preventDefault();
 
@@ -56,8 +49,27 @@ function Signup() {
 				password,
 			});
 
+			toast.success('Account created!', {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+
 			navigate('/sign-in');
 		} catch (err) {
+			toast.error(err.response.data.error, {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
 			console.log(err.response.data)
 		}
 	}

@@ -18,6 +18,7 @@ import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import Badge from '@material-ui/core/Badge';
 import ApiAxios from '../../util/apiAxios';
 import { AuthContext } from '../../context/AuthContext';
+import { toast } from 'react-toastify'
 
 const Header = () => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -49,7 +50,18 @@ const Header = () => {
 						type: 'LOGOUT',
 					});
 				})
-				.then(() => console.log('User signed out'))
+				.then(() => window.localStorage.removeItem('userID'))
+				.then(() => {
+					toast.info('user signed out', {
+						position: 'top-center',
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+					});
+				})
 				.catch((err) => console.log(err));
 		} catch (err) {
 			console.log(err);
@@ -60,7 +72,6 @@ const Header = () => {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar
-				// position="static"
 				sx={{ padding: '15px', background: 'rgb(19,25,33)' }}
 			>
 				<Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>

@@ -31,7 +31,7 @@ const Home = () => {
 				</div>
     ) : (
 		<div>
-			<Box style={{ width: '1800px'}}>
+			<Box style={{ width: '100%' }}>
 				{products.map((product) => (
           <Link to='/product' key={product._id} state={{ id: product._id }} className='linkTag'>
 					<Box m={2}  sx={{ cursor: 'pointer', display: 'inline-block' }}>
