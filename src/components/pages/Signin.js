@@ -51,7 +51,7 @@ const Signin = () => {
 				progress: undefined,
 			});
 
-			navigate('/');
+			navigate(-1);
 		} catch (err) {
 			toast.error(err.response.data.error, {
 				position: 'top-center',
