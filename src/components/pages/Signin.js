@@ -1,11 +1,10 @@
 import { useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
 import SigninHooks from '../hooks/SigninHooks';
 import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
 import { AuthContext } from '../../context/AuthContext';
-import { toast } from "react-toastify";
+import { toastSuccess, toastError } from '../../util/toast';
 
 const Signin = () => {
 	const { dispatch } = useContext(AuthContext);
@@ -30,8 +29,6 @@ const Signin = () => {
 				password,
 			});
 
-			window.localStorage.setItem('userID', payload.data.user.id);
-
 			dispatch({
 				type: "LOGIN",
 				email: payload.data.user.email,
@@ -41,27 +38,11 @@ const Signin = () => {
 				cart: payload.data.user.cart
 			});
 
-			toast.success('user signed in!', {
-				position: 'top-center',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toastSuccess('User logged in!')
 
 			navigate(-1);
 		} catch (err) {
-			toast.error(err.response.data.error, {
-				position: 'top-center',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toastError(err.response.data.error)
 
 		}
 	}

@@ -18,7 +18,7 @@ import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import Badge from '@material-ui/core/Badge';
 import ApiAxios from '../../util/apiAxios';
 import { AuthContext } from '../../context/AuthContext';
-import { toast } from 'react-toastify'
+import { toastInfo } from '../../util/toast';
 
 const Header = () => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -49,17 +49,8 @@ const Header = () => {
 						type: 'LOGOUT',
 					});
 				})
-				.then(() => window.localStorage.removeItem('userID'))
 				.then(() => {
-					toast.info('user signed out', {
-						position: 'top-center',
-						autoClose: 5000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-					});
+					toastInfo('User logged out!')
 				})
 				.catch((err) => console.log(err));
 		} catch (err) {

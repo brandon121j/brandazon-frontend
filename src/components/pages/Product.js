@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Button, Stack, Box } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';

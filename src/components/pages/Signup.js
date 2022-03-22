@@ -7,7 +7,7 @@ import LastNameHooks from '../hooks/LastNameHooks';
 import PasswordHooks from '../hooks/PasswordHooks';
 import EmailHooks from '../hooks/EmailHooks';
 import Layout from '../layout/Layout'
-import { toast } from "react-toastify";
+import {toastSuccess, toastError} from '../../util/toast'
 
 
 
@@ -49,27 +49,11 @@ function Signup() {
 				password,
 			});
 
-			toast.success('Account created!', {
-				position: 'top-center',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toastSuccess('Account created!')
 
 			navigate('/sign-in');
 		} catch (err) {
-			toast.error(err.response.data.error, {
-				position: 'top-center',
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			toastError(err.response.data.error)
 			console.log(err.response.data)
 		}
 	}
