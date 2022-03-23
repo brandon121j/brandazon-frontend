@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import ApiAxios from '../../util/apiAxios';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
+import ApiAxios from '../../util/apiAxios';
 import FirstNameHooks from '../hooks/FirstNameHooks';
 import LastNameHooks from '../hooks/LastNameHooks';
 import PasswordHooks from '../hooks/PasswordHooks';
 import EmailHooks from '../hooks/EmailHooks';
 import Layout from '../layout/Layout'
-import {toastSuccess, toastError} from '../../util/toast'
+import {toastSuccess, toastError} from '../../util/toast';
+
 
 
 
@@ -36,6 +37,7 @@ function Signup() {
 	] = PasswordHooks();
 
 	const navigate = useNavigate();
+	const location = useLocation();
 	
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -149,7 +151,7 @@ function Signup() {
 						Sign up
 					</button>
 					<div className="m-3">
-						<Link to="/sign-in" className="text-success">
+						<Link to="/sign-in" className="text-success" state={{ prevPath: location.pathname }}>
 							Already have an account?
 						</Link>
 					</div>

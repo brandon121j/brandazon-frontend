@@ -18,14 +18,15 @@ import './App.css';
 
 function App() {
 	const { dispatch, state } = useContext(AuthContext);
-	const loggedIn = state.user;
 
 	useEffect(() => {
-			keepUserLoggedIn();
+		keepUserLoggedIn();
 	}, []);
 
 	const keepUserLoggedIn = async () => {
-		if (loggedIn) {
+		const userID = window.localStorage.getItem('userID');
+
+		if (userID) {
 			try {
 				ApiAxios.get('/user-info').then((payload) =>
 					dispatch({
@@ -38,7 +39,9 @@ function App() {
 					})
 				);
 			} catch (err) {
-				console.log(err)
+				dispatch({
+					type: 'LOGOUT'
+				})
 			}
 		} else {
 			dispatch({ type: 'LOGOUT'})

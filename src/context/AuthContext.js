@@ -31,8 +31,9 @@ function reducer(state, action) {
                 }
             }
         case "LOGOUT":
+            window.localStorage.removeItem('userID');
             return {
-                user: null
+                user: null,
             };
         default:
             return state;

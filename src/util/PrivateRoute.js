@@ -1,13 +1,42 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import {AuthContext} from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
+import ApiAxios from './apiAxios';
 
 function PrivateRoute({ children }) {
-	const { state } = useContext(AuthContext);
-	const loggedIn = state.user;
+	const { dispatch } = useContext(AuthContext);
+	const userID = window.localStorage.getItem('userID');
 	const location = useLocation();
 
-	if (loggedIn) {
+	useEffect(() => {
+		userLoggedIn();
+	}, []);
+
+	const userLoggedIn = async () => {
+		if (userID) {
+			try {
+				ApiAxios.get('/user-info')
+					.then((payload) =>
+						dispatch({
+							type: 'UPDATE',
+							email: payload.data.user.email,
+							firstName: payload.data.user.firstName,
+							lastName: payload.data.user.lastName,
+							wishlist: payload.data.user.wishlist,
+							cart: payload.data.user.cart,
+						})
+				);
+			} catch (err) {
+				dispatch({
+					type: 'LOGOUT',
+				});
+			}
+		} else {
+			dispatch({ type: 'LOGOUT' });
+		}
+	};
+
+	if (userID) {
 		return children;
 	} else {
 		return <Navigate to="/sign-in" state={{ from: location }} />;

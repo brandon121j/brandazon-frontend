@@ -11,18 +11,19 @@ import {
 	Button,
 } from '@mui/material';
 
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import Badge from '@material-ui/core/Badge';
 import ApiAxios from '../../util/apiAxios';
 import { AuthContext } from '../../context/AuthContext';
-import { toastInfo } from '../../util/toast';
+import { toastSuccess, toastError, toastInfo } from '../../util/toast';
 
 const Header = () => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const { state, dispatch } = useContext(AuthContext);
+	const location = useLocation();
 
 	const open = Boolean(anchorEl);
 
@@ -50,7 +51,7 @@ const Header = () => {
 					});
 				})
 				.then(() => {
-					toastInfo('User logged out!')
+					toastInfo('User signed out!')
 				})
 				.catch((err) => console.log(err));
 		} catch (err) {
@@ -110,7 +111,7 @@ const Header = () => {
 								</MenuItem>
 								{
 									!state.user ? (
-										<MenuItem onClick={() => {handleClose(); routeChange('sign-in')}}>Login</MenuItem>
+										<MenuItem onClick={() => {handleClose(); console.log('CURRENT LOCATION: ', location.pathname );routeChange('sign-in')}}>Login</MenuItem>
 									) : 
 									(
 										<MenuItem onClick={() => {handleClose(); logout()}}>Logout</MenuItem>

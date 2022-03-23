@@ -1,5 +1,5 @@
-import { useEffect, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import SigninHooks from '../hooks/SigninHooks';
 import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
@@ -8,7 +8,10 @@ import { toastSuccess, toastError } from '../../util/toast';
 
 const Signin = () => {
 	const { dispatch } = useContext(AuthContext);
-	let navigate = useNavigate();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const {prevPath} = location.state;
+	console.log('THE PREVIOUS PATH IS: ', prevPath)
 
 	const [
 		password,
@@ -29,6 +32,7 @@ const Signin = () => {
 				password,
 			});
 
+			window.localStorage.setItem('userID', payload.data.user.id);
 			dispatch({
 				type: "LOGIN",
 				email: payload.data.user.email,
@@ -38,11 +42,16 @@ const Signin = () => {
 				cart: payload.data.user.cart
 			});
 
-			toastSuccess('User logged in!')
+			toastSuccess('User signed in!')
 
-			navigate(-1);
+			if (prevPath !== '/sign-up') {
+				navigate(-1);
+			} else {
+				navigate('/');
+			}
+
 		} catch (err) {
-			toastError(err.response.data.error)
+			toastError(err.response.data.error);
 
 		}
 	}

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import ProductList from '../ProductList';
 import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
@@ -10,7 +10,7 @@ import { AuthContext } from '../../context/AuthContext'
 const Checkout = () => {
 	const [cart, setCart] = useState([]);
 	const [loading, setLoading] = useState(false);
-	const {state} = useContext(AuthContext);
+	const {state, dispatch} = useContext(AuthContext);
 	
 	useEffect(() => {
 		checkOut();
@@ -20,7 +20,7 @@ const Checkout = () => {
 		try {
 			setLoading(true);
 			await ApiAxios.get('/checkout')
-				.then((payload) => setCart(payload.data.cart))
+				.then((payload) => {console.log(payload.data.cart); setCart(payload.data.cart)})
 				.then(() => setLoading(false));
 		} catch (err) {
 			console.log(err);
@@ -61,6 +61,7 @@ const Checkout = () => {
 							</Box>
 						))}
 					</div>
+					<Button onClick={() => dispatch({ type: 'EMPTY_CART'})}>Empty cart</Button>
 				</div>
 				</>
 			)}
