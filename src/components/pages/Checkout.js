@@ -20,7 +20,7 @@ const Checkout = () => {
 		try {
 			setLoading(true);
 			await ApiAxios.get('/checkout')
-				.then((payload) => {console.log(payload.data.cart); setCart(payload.data.cart)})
+				.then((payload) => setCart(payload.data.cart))
 				.then(() => setLoading(false));
 		} catch (err) {
 			console.log(err);
