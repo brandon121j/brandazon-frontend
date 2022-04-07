@@ -10,8 +10,6 @@ const Signin = () => {
 	const { dispatch } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const location = useLocation();
-	const {prevPath} = location.state;
-	console.log('THE PREVIOUS PATH IS: ', prevPath)
 
 	const [
 		password,
@@ -44,11 +42,7 @@ const Signin = () => {
 
 			toastSuccess('User signed in!')
 
-			if (prevPath !== '/sign-up') {
-				navigate(-1);
-			} else {
-				navigate('/');
-			}
+			navigate('/');
 
 		} catch (err) {
 			toastError(err.response.data.error);

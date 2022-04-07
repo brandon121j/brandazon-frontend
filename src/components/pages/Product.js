@@ -154,7 +154,7 @@ const Product = () => {
 				<div>
 				<div className="productContainer">
 					<div className="img">
-						<img src={productInfo.image} />
+						<img src={productInfo.image} alt='product'/>
 					</div>
 					<div className="productInfo">
 						<h3>{productInfo.title}</h3>

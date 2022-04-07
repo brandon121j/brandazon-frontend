@@ -39,7 +39,7 @@ const Header = () => {
 	
 
 	const routeChange = (path) => {
-		navigate(`/${path}`);
+		navigate(`/${path}`, { prevPath: location.pathname });
 	};
 
 	const logout = async () => {
@@ -111,7 +111,7 @@ const Header = () => {
 								</MenuItem>
 								{
 									!state.user ? (
-										<MenuItem onClick={() => {handleClose(); console.log('CURRENT LOCATION: ', location.pathname );routeChange('sign-in')}}>Login</MenuItem>
+										<MenuItem onClick={() => {handleClose();routeChange('sign-in')}}>Login</MenuItem>
 									) : 
 									(
 										<MenuItem onClick={() => {handleClose(); logout()}}>Logout</MenuItem>
