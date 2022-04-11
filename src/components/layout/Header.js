@@ -50,6 +50,7 @@ const Header = () => {
 						type: 'LOGOUT',
 					});
 				})
+				.then(window.localStorage.removeItem('userID'))
 				.then(() => {
 					toastInfo('User signed out!')
 				})

@@ -8,9 +8,6 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 
 import ProductCard from '../ProductCard';
-
-
-
 import { AuthContext } from '../../context/AuthContext';
 import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
@@ -195,10 +192,12 @@ const Product = () => {
 					</div>
 				</div>
 				<div>
-					<div style={{ display: 'flex', flexDirection: 'row'}}>
+
 					<Layout>
+			<div style={{ display: 'flex', justifyContent: 'center'}}>
             <h4>Other Products</h4>
-            <hr style={{ marginLeft: '55px', marginRight: '55px'}}/>
+            <hr />
+			</div>
 			<div>
 				<div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: 300, overflow: 'hidden' }}>
 					<Box style={{ width: '100%' }}>
@@ -227,7 +226,7 @@ const Product = () => {
 		</Layout>
 					</div>
 					</div>
-				</div>
+
 			)}
 		</Layout>
 	);

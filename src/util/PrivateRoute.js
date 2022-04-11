@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import ApiAxios from './apiAxios';
+import {toastError} from './toast'
 
 function PrivateRoute({ children }) {
 	const { dispatch } = useContext(AuthContext);
@@ -30,10 +31,11 @@ function PrivateRoute({ children }) {
 				dispatch({
 					type: 'LOGOUT',
 				});
+				localStorage.removeItem(userID);
+				<Navigate to="/sign-in" state={{ from: location }} />
+				toastError('Sign in first!');
 			}
-		} else {
-			dispatch({ type: 'LOGOUT' });
-		}
+		} 
 	};
 
 	if (userID) {

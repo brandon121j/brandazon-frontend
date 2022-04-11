@@ -59,6 +59,7 @@ const ProductList = (props) => {
 							primary={`$${price}`}
 						/>
 					</Box>
+					<Box></Box>
 					<Box style={{width: '50px'}}>
 						<IconButton edge="end" aria-label="delete" onClick={() => {removeFromCart(id)}}>
 							<DeleteIcon />

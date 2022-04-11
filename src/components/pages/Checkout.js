@@ -40,6 +40,7 @@ const Checkout = () => {
 			) : (
 				<>
 					<h3 style={{ padding: 15 }}>Shopping Cart</h3>
+					<Button onClick={() => dispatch({ type: 'EMPTY_CART'})}>Empty cart</Button>
 				<div style={{ display: 'flex', justifyContent: 'center' }}>
 					<div>
 						{cart.map((product) => (
@@ -61,7 +62,6 @@ const Checkout = () => {
 							</Box>
 						))}
 					</div>
-					<Button onClick={() => dispatch({ type: 'EMPTY_CART'})}>Empty cart</Button>
 				</div>
 				</>
 			)}

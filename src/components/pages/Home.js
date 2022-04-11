@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
+import { Link } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+
 import ProductCard from '../ProductCard';
 import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
-import { Link } from 'react-router-dom';
 import '../../App.css'
-import CircularProgress from '@mui/material/CircularProgress';
 
 const Home = () => {
 	const [products, setProducts] = useState([]);

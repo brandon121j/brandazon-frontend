@@ -2,8 +2,10 @@ import React, { useReducer, useState } from 'react';
 
 export const AuthContext = React.createContext({});
 
+let userID = localStorage.getItem('userID')
+
 const initialState = {
-	user: null,
+	user: userID ? true : null
 };
 
 function reducer(state, action) {
@@ -22,6 +24,7 @@ function reducer(state, action) {
         case "UPDATE": 
             return {
                 user: {
+                    userID: action.email,
                     email: action.email,
                     firstName: action.firstName,
                     lastName: action.lastName,
@@ -31,7 +34,7 @@ function reducer(state, action) {
                 }
             }
         case "LOGOUT":
-            window.localStorage.removeItem('userID');
+            localStorage.removeItem('userID');
             return {
                 user: null,
             };
