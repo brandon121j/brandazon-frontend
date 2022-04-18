@@ -1,3 +1,3 @@
 <h1>brandazon-frontend</h1>
 <p>Brandazon is a Amazon inspired e-commerce website that I created using the MERN stack. Some features that I implemented into this application are Register/Login functionality, responsive web interface, frontend/backend validators, as well as the use of cookies to store user data in the backend.</p>
-<img>https://user-images.githubusercontent.com/77591826/163889443-b700c61c-3d26-47a8-8de1-9aa216241223.gif</img>
+![gif of project](https://user-images.githubusercontent.com/77591826/163889443-b700c61c-3d26-47a8-8de1-9aa216241223.gif)
