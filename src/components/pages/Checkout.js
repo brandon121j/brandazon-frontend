@@ -27,6 +27,24 @@ const Checkout = () => {
 		}
 	};
 
+	const emptyCart = async() => {
+		try {
+			setLoading(true);
+			await ApiAxios.delete('/empty-cart')
+				.then((payload) => {dispatch({
+					type: 'UPDATE',
+					email: payload.data.user.email,
+					firstName: payload.data.user.firstName,
+					lastName: payload.data.user.lastName,
+					wishlist: payload.data.user.wishlist,
+					cart: payload.data.user.cart,
+				});})
+				.then(() => setLoading(false));
+		} catch(err) {
+			console.log(err);
+		}
+	}
+
 	return (
 		<Layout>
 			{loading ? (
@@ -40,7 +58,7 @@ const Checkout = () => {
 			) : (
 				<>
 					<h3 style={{ padding: 15 }}>Shopping Cart</h3>
-					<Button onClick={() => dispatch({ type: 'EMPTY_CART'})}>Empty cart</Button>
+					<Button onClick={() => emptyCart()}>Empty cart</Button>
 				<div style={{ display: 'flex', justifyContent: 'center' }}>
 					<div>
 						{cart.map((product) => (
