@@ -21,16 +21,15 @@ const ProductCard = (props) => {
 
   return (
 
-    <Card sx={{ mx: 'auto', width: 250, height: 250 }} style={{ paddingTop: '10px', border: "none", boxShadow: "none" }}>
+    <Card sx={{ mx: 'auto', width: 250, height: 275 }} style={{ paddingTop: '10px', border: "none", boxShadow: "none" }}>
         <CardMedia
           component="img"
-          height="175"
+          height="175px"
           width="175"
           image={image}
         />
-        <CardContent>
-          <Typography>{title}</Typography>
-          <Typography><b>${price}</b></Typography>
+        <CardContent sx={{ height: 75 }}>
+          <Typography sx={{ height: 75 }}>{title}</Typography>
         </CardContent>
     </Card>
     

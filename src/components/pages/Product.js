@@ -130,7 +130,7 @@ const Product = () => {
 	};
 
 	const userLoggedIn = () => {
-		const userID = window.localStorage.getItem('userID');
+		const userID = window.sessionStorage.getItem('userID');
 
 		if (!userID) {
 			navigate('/sign-in');

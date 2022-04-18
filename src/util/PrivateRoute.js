@@ -6,7 +6,7 @@ import {toastError} from './toast'
 
 function PrivateRoute({ children }) {
 	const { dispatch } = useContext(AuthContext);
-	const userID = window.localStorage.getItem('userID');
+	const userID = window.sessionStorage.getItem('userID');
 	const location = useLocation();
 
 	useEffect(() => {
@@ -31,7 +31,7 @@ function PrivateRoute({ children }) {
 				dispatch({
 					type: 'LOGOUT',
 				});
-				localStorage.removeItem(userID);
+				sessionStorage.removeItem(userID);
 				<Navigate to="/sign-in" state={{ from: location }} />
 				toastError('Sign in first!');
 			}

@@ -30,7 +30,7 @@ const Signin = () => {
 				password,
 			});
 
-			window.localStorage.setItem('userID', payload.data.user.id);
+			window.sessionStorage.setItem('userID', payload.data.user.id);
 			dispatch({
 				type: "LOGIN",
 				userID: payload.data.user.id,
