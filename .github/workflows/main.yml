@@ -28,7 +28,7 @@ jobs:
       run: |
         yarn test
     - name: Deploy to S3
-      uses: jakejarvis/s3-sync-action@master
+      uses: brandon121j/s3-sync-action@master
       with:
         args: --acl public-read --delete
       env:
