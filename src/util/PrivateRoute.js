@@ -11,7 +11,7 @@ function PrivateRoute({ children }) {
 
 	useEffect(() => {
 		userLoggedIn();
-	}, []);
+	});
 
 	const userLoggedIn = async () => {
 		if (userID) {
