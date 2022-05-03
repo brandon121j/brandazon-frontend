@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const ApiAxios = axios.create({
-  baseURL: 'http://localhost:3001/api/',
+  baseURL: process.env.REACT_APP_AXIOS === 'development' ? 'http://localhost:3001/api' : '/api',
   withCredentials: true,
 });
 
