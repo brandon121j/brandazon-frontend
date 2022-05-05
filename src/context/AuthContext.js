@@ -11,8 +11,10 @@ const initialState = {
 function reducer(state, action) {
     switch (action.type) {
         case "LOGIN":
+            console.log(action.cart)
             return {
                 user: {
+                    userID: action.userID,
                     email: action.email,
                     firstName: action.firstName,
                     lastName: action.lastName,
@@ -24,7 +26,7 @@ function reducer(state, action) {
         case "UPDATE": 
             return {
                 user: {
-                    userID: action.email,
+                    userID: action.userID,
                     email: action.email,
                     firstName: action.firstName,
                     lastName: action.lastName,

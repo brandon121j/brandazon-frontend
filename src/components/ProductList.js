@@ -20,22 +20,7 @@ const ProductList = (props) => {
 
 	const { dispatch } = useContext(AuthContext);
 
-	const removeFromCart = async(id) => {
-		try {
-			await ApiAxios.delete(`/remove-from-cart/${id}`)
-				.then((payload) => dispatch({
-					type: "UPDATE",
-					email: payload.data.user.email,
-					firstName: payload.data.user.firstName,
-					lastName: payload.data.user.lastName,
-					wishlist: payload.data.user.wishlist,
-					cart: payload.data.user.cart
-				}))
-				.catch((err) => console.log(err))
-		} catch(err) {
-			console.log(err)
-		}
-	}
+
 
 	return (
 		<div style={{ width: '800px', border: '1px solid gray' }}>
@@ -63,7 +48,7 @@ const ProductList = (props) => {
 					</Box>
 					
 					<Box style={{width: '50px'}}>
-						<IconButton edge="end" aria-label="delete" onClick={() => {removeFromCart(id)}}>
+						<IconButton edge="end" aria-label="delete" onClick={() => props.removeFromCartFunction(id)}>
 							<DeleteIcon />
 						</IconButton>
 					</Box>

@@ -13,12 +13,19 @@ const Home = () => {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
+    getProducts();
+	}, []);
+
+  async function getProducts() {
+    try {
     setLoading(true);
-		ApiAxios.get('/get-all-products')
+		await ApiAxios.get('/get-all-products')
     .then((result) => setProducts(result.data))
     .then(() => setLoading(false))
-
-	}, []);
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
 	return (
     <Layout>

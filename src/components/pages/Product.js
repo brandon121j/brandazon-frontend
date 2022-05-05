@@ -29,7 +29,7 @@ const Product = () => {
 	useEffect(() => {
 		getProductInfo();
 		alreadyAdded();
-	}, [id]);
+	}, []);
 
 	const getProductInfo = async () => {
 		try {

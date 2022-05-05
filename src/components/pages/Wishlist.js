@@ -10,15 +10,23 @@ import '../../App.css';
 const Checkout = () => {
 	const [wishlist, setWishlist] = useState([]);
 	const [loading, setLoading] = useState(false);
-	const { state } = useContext(AuthContext);
+	// const { state } = useContext(AuthContext);
 
 	useEffect(() => {
+		loadWishlist();
+	}, []);
+
+	async function loadWishlist() {
+		try {
 		setLoading(true);
 		ApiAxios.get('/get-users-wishlist')
 			.then((result) => setWishlist(result.data.wishlist))
 			.then(() => setLoading(false))
 			.catch((err) => console.log(err));
-	}, [state]);
+		} catch(err) {
+			console.log(err);
+		}
+	}
 
 	return (
 		<Layout>

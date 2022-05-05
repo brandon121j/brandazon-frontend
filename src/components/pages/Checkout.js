@@ -31,7 +31,8 @@ const Checkout = () => {
 		try {
 			setLoading(true);
 			await ApiAxios.delete('/empty-cart')
-				.then((payload) => {dispatch({
+				.then((payload) => {
+					dispatch({
 					type: 'UPDATE',
 					email: payload.data.user.email,
 					firstName: payload.data.user.firstName,
@@ -42,6 +43,24 @@ const Checkout = () => {
 				.then(() => setLoading(false));
 		} catch(err) {
 			console.log(err);
+		}
+	}
+
+	const removeFromCart = async(id) => {
+		try {
+			await ApiAxios.delete(`/remove-from-cart/${id}`)
+				.then((payload) => dispatch({
+					type: "UPDATE",
+					email: payload.data.user.email,
+					firstName: payload.data.user.firstName,
+					lastName: payload.data.user.lastName,
+					wishlist: payload.data.user.wishlist,
+					cart: payload.data.user.cart
+				}))
+				.then(() => setCart(cart.filter((item) => item._id !== id)))
+				.catch((err) => console.log(err))
+		} catch(err) {
+			console.log(err)
 		}
 	}
 
@@ -77,6 +96,7 @@ const Checkout = () => {
 										image: product.image,
 										quantity: product.quantity
 									}}
+									removeFromCartFunction = {() => removeFromCart(product._id)}
 								/>
 							</Box>
 						))}

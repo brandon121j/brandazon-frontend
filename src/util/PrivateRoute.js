@@ -11,12 +11,12 @@ function PrivateRoute({ children }) {
 
 	useEffect(() => {
 		userLoggedIn();
-	});
+	}, []);
 
 	const userLoggedIn = async () => {
 		if (userID) {
 			try {
-				ApiAxios.get('/user-info')
+				await ApiAxios.get('/user-info')
 					.then((payload) =>
 						dispatch({
 							type: 'UPDATE',
