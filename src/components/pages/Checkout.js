@@ -1,20 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import ProductList from '../ProductList';
 import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
-import CircularProgress from '@mui/material/CircularProgress';
 import '../../App.css';
 import { AuthContext } from '../../context/AuthContext'
 
 const Checkout = () => {
 	const [cart, setCart] = useState([]);
 	const [loading, setLoading] = useState(false);
-	const {dispatch} = useContext(AuthContext);
+	const {state, dispatch} = useContext(AuthContext);
 	
 	useEffect(() => {
 		checkOut();
-	}, []);
+	}, [state]);
 
 	const checkOut = async () => {
 		try {
