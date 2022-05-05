@@ -14,7 +14,7 @@ const Checkout = () => {
 	
 	useEffect(() => {
 		checkOut();
-	}, [state]);
+	}, []);
 
 	const checkOut = async () => {
 		try {
