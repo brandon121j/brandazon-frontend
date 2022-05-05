@@ -10,7 +10,7 @@ import { AuthContext } from '../../context/AuthContext'
 const Checkout = () => {
 	const [cart, setCart] = useState([]);
 	const [loading, setLoading] = useState(false);
-	const {state, dispatch} = useContext(AuthContext);
+	const {dispatch} = useContext(AuthContext);
 	
 	useEffect(() => {
 		checkOut();
