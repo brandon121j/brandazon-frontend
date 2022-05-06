@@ -28,7 +28,7 @@ const Product = () => {
 
 	useEffect(() => {
 		getProductInfo();
-		alreadyAdded();
+		alreadyAdded(id);
 	}, []);
 
 	const getProductInfo = async () => {
@@ -61,7 +61,7 @@ const Product = () => {
 		}
 	};
 
-	const alreadyAdded = () => {
+	const alreadyAdded = (id) => {
 		if (state.user) {
 			const stringID = id.toString();
 			const cart = state.user.cart;
