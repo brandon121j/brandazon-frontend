@@ -10,7 +10,7 @@ import '../../App.css';
 const Checkout = () => {
 	const [wishlist, setWishlist] = useState([]);
 	const [loading, setLoading] = useState(false);
-	// const { state } = useContext(AuthContext);
+	const { dispatch } = useContext(AuthContext);
 
 	useEffect(() => {
 		loadWishlist();
@@ -25,6 +25,24 @@ const Checkout = () => {
 			.catch((err) => console.log(err));
 		} catch(err) {
 			console.log(err);
+		}
+	}
+
+	const removeFromWishlist = async(id) => {
+		try {
+			await ApiAxios.delete(`/remove-from-wishlist/${id}`)
+				.then((payload) => dispatch({
+					type: "UPDATE",
+					email: payload.data.user.email,
+					firstName: payload.data.user.firstName,
+					lastName: payload.data.user.lastName,
+					wishlist: payload.data.user.wishlist,
+					cart: payload.data.user.cart
+				}))
+				.then(() => setWishlist(wishlist.filter((item) => item._id !== id)))
+				.catch((err) => console.log(err))
+		} catch(err) {
+			console.log(err)
 		}
 	}
 
@@ -58,6 +76,7 @@ const Checkout = () => {
 											price: product.price,
 											image: product.image,
 										}}
+										removeFromWishlistFunction = {() => removeFromWishlist(product._id)}
 									/>
 								</Box>
 							))}
