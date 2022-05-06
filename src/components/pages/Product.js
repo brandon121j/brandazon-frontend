@@ -86,6 +86,7 @@ const Product = () => {
 							wishlist: payload.data.user.wishlist,
 							cart: payload.data.user.cart,
 						});
+						console.log(payload)
 					})
 					.then(setAddedToCart(true))
 					.catch((err) => console.log(err));
