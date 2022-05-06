@@ -218,6 +218,10 @@ const Product = () => {
 					<Box style={{ width: '100%' }}>
 						{randomProducts.map((product) => (
 							<Link
+								to="/product"
+								key={product._id}
+								state={{ id: product._id }}
+								className="linkTag"
 								onClick={() => {changeProduct(product._id)}}
 							>
 								<Box m={2} sx={{ cursor: 'pointer', display: 'inline-block' }}>
