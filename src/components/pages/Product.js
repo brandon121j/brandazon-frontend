@@ -46,6 +46,21 @@ const Product = () => {
 		}
 	};
 
+	const changeProduct = async(id) => {
+		try {
+			setLoading(true);
+			await ApiAxios.get(`/product/${id}`)
+				.then((product) => {
+					setProductInfo(product.data.productInfo);
+					setOtherProducts(product.data.otherProducts);
+				})
+				.then(() => setLoading(false))
+				.catch((err) => console.log(err));
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	const alreadyAdded = () => {
 		if (state.user) {
 			const stringID = id.toString();
@@ -203,10 +218,7 @@ const Product = () => {
 					<Box style={{ width: '100%' }}>
 						{randomProducts.map((product) => (
 							<Link
-								to="/product"
-								key={product._id}
-								state={{ id: product._id }}
-								className="linkTag"
+								onClick={() => {changeProduct(product._id)}}
 							>
 								<Box m={2} sx={{ cursor: 'pointer', display: 'inline-block' }}>
 									<ProductCard
