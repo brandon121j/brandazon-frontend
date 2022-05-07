@@ -29,7 +29,7 @@ const Signin = () => {
 				email,
 				password,
 			});
-			console.log('FRONT END: ', payload.data)
+
 			window.sessionStorage.setItem('userID', payload.data.user.id);
 
 			dispatch({

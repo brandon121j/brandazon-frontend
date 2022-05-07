@@ -13,6 +13,7 @@ import ApiAxios from '../../util/apiAxios';
 import Layout from '../layout/Layout';
 import '../styles/product.css';
 
+
 const Product = () => {
 	const { dispatch, state } = useContext(AuthContext);
 	const location = useLocation();
@@ -24,7 +25,7 @@ const Product = () => {
 	const [addedToCart, setAddedToCart] = useState(false);
 	const navigate = useNavigate();
 
-	let randomProducts = otherProducts.sort(() => Math.random() - 0.5);
+	// let randomProducts = otherProducts.sort(() => Math.random() - 0.5);
 
 	useEffect(() => {
 		getProductInfo();
@@ -66,7 +67,7 @@ const Product = () => {
 			const stringID = id.toString();
 			const cart = state.user.cart;
 			const wishlist = state.user.wishlist;
-			const inCart = cart.includes(stringID);
+			const inCart = cart?.includes(stringID);
 			const inWishlist = wishlist.includes(stringID);
 			inCart ? setAddedToCart(true) : setAddedToCart(false);
 			inWishlist ? setAddedToWishlist(true) : setAddedToWishlist(false);
@@ -92,7 +93,7 @@ const Product = () => {
 					.catch((err) => console.log(err));
 			} else {
 				await ApiAxios.delete(`/remove-from-cart/${id}`)
-					.then((payload) =>
+					.then((payload) => {
 						dispatch({
 							type: 'UPDATE',
 							email: payload.data.user.email,
@@ -100,8 +101,8 @@ const Product = () => {
 							lastName: payload.data.user.lastName,
 							wishlist: payload.data.user.wishlist,
 							cart: payload.data.user.cart,
-						})
-					)
+						});
+				})
 					.then(setAddedToCart(false))
 					.catch((err) => console.log(err));
 			}
@@ -185,7 +186,7 @@ const Product = () => {
 								startIcon={
 									addedToCart ? <ShoppingCartIcon /> : <AddShoppingCartIcon />
 								}
-								onClick={() => {
+								onClick={(e) => {
 									userLoggedIn();
 									addToCart();
 								}}
@@ -217,15 +218,9 @@ const Product = () => {
 			<div>
 				<div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: 300, overflow: 'hidden' }}>
 					<Box style={{ width: '100%' }}>
-						{randomProducts.map((product) => (
-							<Link
-								to="/product"
-								key={product._id}
-								state={{ id: product._id }}
-								className="linkTag"
-								onClick={() => {changeProduct(product._id)}}
-							>
-								<Box m={2} sx={{ cursor: 'pointer', display: 'inline-block' }}>
+						{otherProducts.map((product) => (
+
+								<Box onClick={() => changeProduct(product._id)} m={2} sx={{ cursor: 'pointer', display: 'inline-block' }}>
 									<ProductCard
 										product={{
 											id: product._id,
@@ -235,7 +230,7 @@ const Product = () => {
 										}}
 									/>
 								</Box>
-							</Link>
+
 						))}
 					</Box>
 				</div>
